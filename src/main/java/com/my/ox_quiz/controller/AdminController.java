@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/quiz")
-public class QuizController {
+@RequestMapping("/admin")
+public class AdminController {
     private final QuizService quizService;
     private final MemberService memberService;
 }
