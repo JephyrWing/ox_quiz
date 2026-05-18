@@ -19,10 +19,10 @@ public class MemberDto {
     private Long no;
     private String id;
     private String password;
-    private RoleType role;
-    private MemberStatus status;
-    private Integer answerTrue;
-    private Integer answerFalse;
+    private RoleType role = RoleType.USER;
+    private MemberStatus status = MemberStatus.PENDING;
+    private Integer answerTrue = 0;
+    private Integer answerFalse = 0;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
