@@ -14,6 +14,10 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="fw-bold">회원 관리</h1>
+      
+        <div th:if="${message != null}" class="alert alert-danger">
+          [[${message}]]
+        </div>
 
         <a href="/quiz" class="btn btn-secondary">
             퀴즈 관리로 이동
@@ -36,41 +40,45 @@
         </thead>
 
         <tbody>
-        <tr>
+        <tr th:each="dto : ${dtoList}" th:object="${dto}">
 
-            <td>1</td>
+            <td>[[*{no}]]</td>
 
-            <td>user01</td>
+            <td>[[*{id}]]</td>
 
             <td>
-                <span class="badge bg-danger">
-                    ADMIN
+                <span th:if="*{role.name() == 'ADMIN'}" class="badge bg-danger">
+                    [[*{role}]]
                 </span>
 
-                <span class="badge bg-primary">
-                    USER
+                <span th:if="*{role.name() == 'USER'}" class="badge bg-primary">
+                    [[*{role}]]
                 </span>
             </td>
 
             <td>
-                <span class="badge bg-success">
+                <span th:if="*{status.name() == 'APPROVED'}" class="badge bg-success">
                     승인
                 </span>
 
-                <span class="badge bg-secondary">
+                <span th:if="*{status.name() == 'PENDING'}" class="badge bg-secondary">
                     미승인
                 </span>
             </td>
 
-            <td>0</td>
+            <td>[[*{answerTrue}]]</td>
 
-            <td>0</td>
+            <td>[[*{answerFalse}]]</td>
 
             <td>
                 <form
                         action="/admin/member/approve"
                         method="post">
+                  
+                    <input type="hidden" th:value="*{id}" name="id">
+                  
                     <button
+                            th:if="*{status.name() == 'PENDING'}"
                             type="submit"
                             class="btn btn-success btn-sm">
                         승인
@@ -78,7 +86,7 @@
 
                 </form>
 
-                <span class="text-muted">
+                <span th:if="*{status.name() == 'APPROVED'}" class="text-muted">
                     완료
                 </span>
             </td>
@@ -88,13 +96,15 @@
                         action="/admin/member/password"
                         method="post"
                         class="d-flex gap-2">
-
+                    
                     <input
                             type="password"
                             name="password"
                             class="form-control form-control-sm"
                             placeholder="새 비밀번호">
-
+                  
+                    <input type="hidden" th:value="*{id}" name="id">
+                    
                     <button
                             type="submit"
                             class="btn btn-warning btn-sm">

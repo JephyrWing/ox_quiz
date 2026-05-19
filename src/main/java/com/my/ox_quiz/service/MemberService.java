@@ -34,14 +34,8 @@ public class MemberService {
     }
 
     public void join(MemberDto dto) {
-        Member member = new Member();
-        member.setNo(dto.getNo());
-        member.setId(dto.getId());
+        Member member = MemberDto.toEntity(dto);
         member.setPassword(passwordEncoder.encode(dto.getPassword()));
-        member.setRole(dto.getRole());
-        member.setStatus(dto.getStatus());
-        member.setAnswerTrue(dto.getAnswerTrue());
-        member.setAnswerFalse(dto.getAnswerFalse());
         memberRepository.save(member);
     }
 
@@ -51,6 +45,12 @@ public class MemberService {
         boolean matches = passwordEncoder.matches(dto.getPassword(), loginDto.getPassword());
         if (matches) return loginDto;
         else return null;
+    }
+
+    public void adminApprove(String id) {
+        MemberDto approve = findByMemberId(id);
+        approve.setStatus(MemberStatus.APPROVED);
+        memberRepository.save(MemberDto.toEntity(approve));
     }
 
 }
