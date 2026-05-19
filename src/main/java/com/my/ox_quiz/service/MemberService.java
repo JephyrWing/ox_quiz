@@ -35,6 +35,7 @@ public class MemberService {
 
     public void join(MemberDto dto) {
         Member member = new Member();
+        member.setNo(dto.getNo());
         member.setId(dto.getId());
         member.setPassword(passwordEncoder.encode(dto.getPassword()));
         member.setRole(dto.getRole());
