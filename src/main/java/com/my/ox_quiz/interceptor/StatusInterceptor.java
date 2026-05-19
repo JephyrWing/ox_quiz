@@ -21,7 +21,6 @@ public class StatusInterceptor implements HandlerInterceptor {
             response.sendRedirect("/member/login");
             return false;
         } else if (loginMember.getStatus().name().equals("PENDING")) {
-            session.setAttribute("message", MemberStatus.PENDING.getMessage());
             response.sendRedirect("/member/my-page");
         }
         return true;

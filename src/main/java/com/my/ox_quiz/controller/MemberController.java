@@ -8,10 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -54,6 +51,10 @@ public class MemberController {
         if (loginDto == null) {
             redirectAttributes.addFlashAttribute("message", "아이디 또는 비밀번호가 틀렸습니다.");
             return "redirect:/member/login";
+        } else if (loginDto.getRole().name().equals("ADMIN")) {
+            session.setAttribute("loginMember", loginDto);
+            session.setMaxInactiveInterval(60*30);
+            return "redirect:/quiz";
         } else {
             session.setAttribute("loginMember", loginDto);
             session.setMaxInactiveInterval(60*30);
@@ -62,11 +63,26 @@ public class MemberController {
     }
 
     @GetMapping("/my-page")
-    public String myPage(HttpSession session, Model model) {
-        if (!ObjectUtils.isEmpty(session.getAttribute("message"))){
-            model.addAttribute("message", session.getAttribute("message").toString());
-            session.removeAttribute("message");
-        }
+    public String myPage() {
         return "my-page";
     }
+    
+    @PostMapping("/password")
+    public String pwUpdate(@RequestParam("password") String password,
+                           HttpSession session,
+                           RedirectAttributes redirectAttributes){
+        MemberDto dto = (MemberDto) session.getAttribute("loginMember");
+        dto.setPassword(password);
+        memberService.join(dto);
+        redirectAttributes.addFlashAttribute("message", "비밀번호가 수정되었습니다.");
+        return "redirect:/member/my-page";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/";
+    }
+
+
 }
