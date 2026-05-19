@@ -27,7 +27,8 @@ public class MemberDto {
     private LocalDateTime updatedAt;
 
     public static Member toEntity(MemberDto dto) {
-        Member member = new Member(dto.getNo(),
+        Member member = new Member(
+                dto.getNo(),
                 dto.getId(),
                 dto.getPassword(),
                 dto.getRole(),
@@ -38,7 +39,8 @@ public class MemberDto {
     }
 
     public static MemberDto toDto(Member member) {
-        MemberDto dto = new MemberDto(member.getNo(),
+        MemberDto dto = new MemberDto(
+                member.getNo(),
                 member.getId(),
                 member.getPassword(),
                 member.getRole(),
