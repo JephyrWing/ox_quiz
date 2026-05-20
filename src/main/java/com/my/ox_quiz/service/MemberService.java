@@ -57,5 +57,4 @@ public class MemberService {
     public void update(MemberDto dto) {
         memberRepository.save(MemberDto.toEntity(dto));
     }
-
 }

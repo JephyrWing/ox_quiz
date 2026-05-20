@@ -38,4 +38,13 @@ public class QuizService {
     public void delete(Long id) {
         quizRepository.deleteById(id);
     }
+
+    public QuizDto playQuiz() {
+        Quiz result = quizRepository.randomSelect().orElse(null);
+        if (result == null) {
+            return null;
+        } else {
+            return QuizDto.toDto(result);
+        }
+    }
 }

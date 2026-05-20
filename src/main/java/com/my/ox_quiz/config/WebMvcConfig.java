@@ -19,18 +19,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry
                 .addInterceptor(loginInterceptor)
-                .addPathPatterns("/**")
+                .addPathPatterns("/**",
+                        "/quiz/play",
+                        "/quiz/check")
                 .excludePathPatterns("/",
                         "/member/login",
                         "/member/join");
         registry
                 .addInterceptor(adminInterceptor)
-                .addPathPatterns("/quiz",
-                        "/quiz/insert",
-                        "/quiz/{id}",
-                        "/quiz/update",
-                        "/quiz/delete",
-                        "/admin/**");
+                .addPathPatterns("/quiz/**", "/admin/**")
+                .excludePathPatterns("/quiz/play", "/quiz/check");
         registry
                 .addInterceptor(statusInterceptor)
                 .addPathPatterns("/**")
