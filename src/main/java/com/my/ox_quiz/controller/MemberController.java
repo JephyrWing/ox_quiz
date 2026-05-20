@@ -20,7 +20,7 @@ public class MemberController {
 
     @GetMapping("/join")
     public String joinForm() {
-        return "join";
+        return "member/join";
     }
 
     @PostMapping("/join")
@@ -40,7 +40,7 @@ public class MemberController {
 
     @GetMapping("/login")
     public String loginForm(){
-        return "login";
+        return "member/login";
     }
 
     @PostMapping("/login")
@@ -64,7 +64,7 @@ public class MemberController {
 
     @GetMapping("/my-page")
     public String myPage() {
-        return "my-page";
+        return "member/my-page";
     }
     
     @PostMapping("/password")

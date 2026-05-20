@@ -22,7 +22,7 @@ public class AdminController {
     public String memberList(Model model) {
         List<MemberDto> dtoList = memberService.findAll();
         model.addAttribute("dtoList", dtoList);
-        return "member-list";
+        return "admin/member-list";
     }
 
     @PostMapping("/member/password")
