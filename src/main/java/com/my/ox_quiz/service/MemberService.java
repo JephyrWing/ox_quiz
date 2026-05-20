@@ -53,4 +53,8 @@ public class MemberService {
         memberRepository.save(MemberDto.toEntity(approve));
     }
 
+    // 비밀번호를 안 건드리고 다른 내용만 업데이트 할 때
+    public void update(MemberDto dto) {
+        memberRepository.save(MemberDto.toEntity(dto));
+    }
 }

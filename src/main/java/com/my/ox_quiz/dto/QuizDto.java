@@ -19,7 +19,8 @@ public class QuizDto {
     private LocalDateTime updatedAt;
 
     public static Quiz toEntity(QuizDto dto) {
-        Quiz quiz = new Quiz(dto.getId(),
+        Quiz quiz = new Quiz(
+                dto.getId(),
                 dto.getContent(),
                 dto.getAnswer(),
                 dto.getWriter());
@@ -27,7 +28,8 @@ public class QuizDto {
     }
 
     public static QuizDto toDto(Quiz quiz) {
-        QuizDto dto = new QuizDto(quiz.getId(),
+        QuizDto dto = new QuizDto(
+                quiz.getId(),
                 quiz.getContent(),
                 quiz.getAnswer(),
                 quiz.getWriter(),
